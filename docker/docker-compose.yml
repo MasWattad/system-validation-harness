@@ -1,0 +1,22 @@
+services:
+  server:
+    image: networkstatic/iperf3
+    container_name: svh_server
+    command: ["-s"]
+    networks:
+      - svh_net
+
+  client:
+    image: python:3.11-slim
+    container_name: svh_client
+    command: ["sleep", "infinity"]
+    depends_on:
+      - server
+    networks:
+      - svh_net
+    volumes:
+      - ..:/work
+    working_dir: /work
+networks:
+  svh_net:
+    driver: bridge
