@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Test artifacts (generated)
+reports/*
+!reports/.gitkeep
+
+# OS / IDE
+.DS_Store
+.vscode/
