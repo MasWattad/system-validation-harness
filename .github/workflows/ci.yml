@@ -17,11 +17,16 @@ jobs:
         run: docker compose -f docker/docker-compose.yml up -d
 
       - name: Install deps inside client
-        env:
-          DEBIAN_FRONTEND: noninteractive
         run: |
-          docker exec svh_client bash -lc "apt-get update && apt-get install -y iputils-ping iperf3 curl"
-          docker exec svh_client bash -lc "python -m pip install --upgrade pip && pip install -r requirements.txt"
+          docker exec svh_client bash -lc "
+            export DEBIAN_FRONTEND=noninteractive;
+            apt-get update &&
+            apt-get install -y iputils-ping iperf3 curl iproute2
+          "
+          docker exec svh_client bash -lc "
+            python -m pip install --upgrade pip &&
+            pip install -r requirements.txt
+          "
 
       - name: Run tests
         run: docker exec svh_client bash -lc "pytest"
