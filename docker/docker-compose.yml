@@ -17,6 +17,8 @@ services:
     volumes:
       - ..:/work
     working_dir: /work
+    cap_add:
+      - NET_ADMIN
 networks:
   svh_net:
     driver: bridge
